@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="RemediosHeading">
+    <span jhiTranslate="iPetApp.remedios.home.title">Remedios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="iPetApp.remedios.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-remedios"
+        [routerLink]="['/remedios/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="iPetApp.remedios.home.createLabel"> Create a new Remedios </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="remedios?.length === 0">
+    <span jhiTranslate="iPetApp.remedios.home.notFound">No remedios found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="remedios && remedios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.remedios.nome">Nome</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.remedios.fabricante">Fabricante</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.remedios.tipo">Tipo</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.remedios.consulta">Consulta</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let remedios of remedios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/remedios', remedios.id, 'view']">{{ remedios.id }}</a>
+          </td>
+          <td>{{ remedios.nome }}</td>
+          <td>{{ remedios.fabricante }}</td>
+          <td jhiTranslate="{{ 'iPetApp.TipoRemedio.' + remedios.tipo }}">{{ remedios.tipo }}</td>
+          <td>
+            <div *ngIf="remedios.consulta">
+              <a [routerLink]="['/consulta', remedios.consulta?.id, 'view']">{{ remedios.consulta?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/remedios', remedios.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/remedios', remedios.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(remedios)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

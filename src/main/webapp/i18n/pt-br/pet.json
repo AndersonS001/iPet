@@ -1,0 +1,29 @@
+{
+  "iPetApp": {
+    "pet": {
+      "home": {
+        "title": "Pets",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Pet",
+        "createOrEditLabel": "Criar ou editar Pet",
+        "notFound": "Nenhum Pet encontrado"
+      },
+      "created": "Um novo Pet foi criado com o identificador {{ param }}",
+      "updated": "Um Pet foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Pet foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Pet {{ id }}?"
+      },
+      "detail": {
+        "title": "Pet"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "dataNascimento": "Data Nascimento",
+      "especie": "Especie",
+      "peso": "Peso",
+      "foto": "Foto",
+      "tutor": "Tutor"
+    }
+  }
+}

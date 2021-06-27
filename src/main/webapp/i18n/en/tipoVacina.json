@@ -1,0 +1,10 @@
+{
+  "iPetApp": {
+    "TipoVacina": {
+      "null": "",
+      "ANTIRRABICA": "ANTIRRABICA",
+      "GRIPE": "GRIPE",
+      "LEISHMANIOSE": "LEISHMANIOSE"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "iPetApp": {
+    "convenio": {
+      "home": {
+        "title": "Convenios",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Convenio",
+        "createOrEditLabel": "Criar ou editar Convenio",
+        "notFound": "Nenhum Convenio encontrado"
+      },
+      "created": "Um novo Convenio foi criado com o identificador {{ param }}",
+      "updated": "Um Convenio foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Convenio foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Convenio {{ id }}?"
+      },
+      "detail": {
+        "title": "Convenio"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "email": "Email",
+      "valor": "Valor"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Convenio",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "convenio",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210627230108"
+}

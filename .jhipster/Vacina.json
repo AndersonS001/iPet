@@ -1,0 +1,29 @@
+{
+  "name": "Vacina",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataAplicacao",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "TipoVacina",
+      "fieldValues": "ANTIRRABICA,GRIPE,LEISHMANIOSE"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "vacina",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210627230105"
+}

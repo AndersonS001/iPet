@@ -1,0 +1,28 @@
+{
+  "iPetApp": {
+    "exame": {
+      "home": {
+        "title": "Exames",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Exame",
+        "createOrEditLabel": "Create or edit a Exame",
+        "notFound": "No Exames found"
+      },
+      "created": "A new Exame is created with identifier {{ param }}",
+      "updated": "A Exame is updated with identifier {{ param }}",
+      "deleted": "A Exame is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Exame {{ id }}?"
+      },
+      "detail": {
+        "title": "Exame"
+      },
+      "id": "ID",
+      "especialidade": "Especialidade",
+      "medico": "Medico",
+      "valor": "Valor",
+      "resultado": "Resultado",
+      "consulta": "Consulta"
+    }
+  }
+}

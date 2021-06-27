@@ -1,0 +1,78 @@
+<div>
+  <h2 id="page-heading" data-cy="TutorHeading">
+    <span jhiTranslate="iPetApp.tutor.home.title">Tutors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="iPetApp.tutor.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tutor"
+        [routerLink]="['/tutor/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="iPetApp.tutor.home.createLabel"> Create a new Tutor </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tutors?.length === 0">
+    <span jhiTranslate="iPetApp.tutor.home.notFound">No tutors found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="tutors && tutors.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.tutor.nome">Nome</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.tutor.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.tutor.dataNascimento">Data Nascimento</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.tutor.pet">Pet</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tutor of tutors; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tutor', tutor.id, 'view']">{{ tutor.id }}</a>
+          </td>
+          <td>{{ tutor.nome }}</td>
+          <td>{{ tutor.email }}</td>
+          <td>{{ tutor.dataNascimento | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="tutor.pet">
+              <a [routerLink]="['/pet', tutor.pet?.id, 'view']">{{ tutor.pet?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/tutor', tutor.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/tutor', tutor.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(tutor)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

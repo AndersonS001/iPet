@@ -41,6 +41,8 @@
     "jwtSecretKey": "NDZmOGJiOTUzNDU2ODhiYWVmOTlkNmYzYzFiOTRjYjVlZDc1ZThkOGQ3MTMyNmEyZmMwODljYTA5NGZiNjM4ZDczMGExOGRjYzhlMWJjMjk4OGEyYTE5Y2MzY2M4MDI0YzkyNDJkNDBjMzEwNjk1NDQxNGMyODQ3NDUxMmViZTE=",
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
-    "languages": ["pt-br", "en"]
+    "languages": ["pt-br", "en"],
+    "entities": ["Vacina", "Pet", "Tutor", "Convenio", "Exame", "Remedios", "Consulta"],
+    "lastLiquibaseTimestamp": 1624834871000
   }
 }

@@ -1,0 +1,27 @@
+{
+  "iPetApp": {
+    "tutor": {
+      "home": {
+        "title": "Tutors",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tutor",
+        "createOrEditLabel": "Criar ou editar Tutor",
+        "notFound": "Nenhum Tutor encontrado"
+      },
+      "created": "Um novo Tutor foi criado com o identificador {{ param }}",
+      "updated": "Um Tutor foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Tutor foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Tutor {{ id }}?"
+      },
+      "detail": {
+        "title": "Tutor"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "email": "Email",
+      "dataNascimento": "Data Nascimento",
+      "pet": "Pet"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+entity Vacina {
+	nome String,
+    dataAplicacao LocalDate,
+    tipo TipoVacina
+}
+
+entity Pet {
+	nome String,
+    dataNascimento LocalDate,
+    especie Especie,
+    Peso Double,
+    foto ImageBlob
+}
+
+entity Tutor {
+	nome String,
+    email String,
+    dataNascimento LocalDate
+}
+
+entity Convenio {
+	nome String,
+    email String,
+    valor Double
+}
+
+entity Exame {
+	especialidade String,
+    medico String,
+    valor Double,
+    resultado Blob
+}
+
+entity Remedios {
+	nome String,
+    fabricante String,
+    tipo TipoRemedio
+}
+
+entity Consulta {
+	especialidade String,
+    medico String,
+    valor Double,
+    receita Blob
+}
+
+relationship OneToMany {
+	Consulta to Exame,
+    Consulta to Remedios,
+    Pet to Tutor
+}
+
+enum TipoRemedio{
+	COMPRIMIDO, LIQUIDO, CAPSULA
+}
+
+enum TipoVacina{
+	ANTIRRABICA, GRIPE, LEISHMANIOSE
+}
+
+enum Especie{
+	CACHORRO, GATO
+}
+
+// Set pagination options
+paginate Pet with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

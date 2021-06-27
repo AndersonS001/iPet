@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pet">
+      <h2 data-cy="petDetailsHeading"><span jhiTranslate="iPetApp.pet.detail.title">Pet</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pet.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.nome">Nome</span></dt>
+        <dd>
+          <span>{{ pet.nome }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.dataNascimento">Data Nascimento</span></dt>
+        <dd>
+          <span>{{ pet.dataNascimento | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.especie">Especie</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'iPetApp.Especie.' + pet.especie }}">{{ pet.especie }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.peso">Peso</span></dt>
+        <dd>
+          <span>{{ pet.peso }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.foto">Foto</span></dt>
+        <dd>
+          <div *ngIf="pet.foto">
+            <a (click)="openFile(pet.foto, pet.fotoContentType)">
+              <img [src]="'data:' + pet.fotoContentType + ';base64,' + pet.foto" style="max-width: 100%" alt="pet image" />
+            </a>
+            {{ pet.fotoContentType }}, {{ byteSize(pet.foto) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pet', pet.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

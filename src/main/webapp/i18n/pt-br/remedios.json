@@ -1,0 +1,27 @@
+{
+  "iPetApp": {
+    "remedios": {
+      "home": {
+        "title": "Remedios",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Remedios",
+        "createOrEditLabel": "Criar ou editar Remedios",
+        "notFound": "Nenhum Remedios encontrado"
+      },
+      "created": "Um novo Remedios foi criado com o identificador {{ param }}",
+      "updated": "Um Remedios foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Remedios foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Remedios {{ id }}?"
+      },
+      "detail": {
+        "title": "Remedios"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "fabricante": "Fabricante",
+      "tipo": "Tipo",
+      "consulta": "Consulta"
+    }
+  }
+}

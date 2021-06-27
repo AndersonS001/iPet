@@ -1,0 +1,26 @@
+{
+  "iPetApp": {
+    "convenio": {
+      "home": {
+        "title": "Convenios",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Convenio",
+        "createOrEditLabel": "Create or edit a Convenio",
+        "notFound": "No Convenios found"
+      },
+      "created": "A new Convenio is created with identifier {{ param }}",
+      "updated": "A Convenio is updated with identifier {{ param }}",
+      "deleted": "A Convenio is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Convenio {{ id }}?"
+      },
+      "detail": {
+        "title": "Convenio"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "email": "Email",
+      "valor": "Valor"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-consulta-heading" data-cy="ConsultaCreateUpdateHeading" jhiTranslate="iPetApp.consulta.home.createOrEditLabel">
+        Create or edit a Consulta
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.consulta.especialidade" for="field_especialidade">Especialidade</label>
+          <input
+            type="text"
+            class="form-control"
+            name="especialidade"
+            id="field_especialidade"
+            data-cy="especialidade"
+            formControlName="especialidade"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.consulta.medico" for="field_medico">Medico</label>
+          <input type="text" class="form-control" name="medico" id="field_medico" data-cy="medico" formControlName="medico" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.consulta.valor" for="field_valor">Valor</label>
+          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.consulta.receita" for="field_receita">Receita</label>
+          <div>
+            <div *ngIf="editForm.get('receita')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('receita')!.value, editForm.get('receitaContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left">{{ editForm.get('receitaContentType')!.value }}, {{ byteSize(editForm.get('receita')!.value) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ receita: null }); editForm.patchValue({ receitaContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_receita"
+              data-cy="receita"
+              (change)="setFileData($event, 'receita', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="receita" id="field_receita" data-cy="receita" formControlName="receita" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="receitaContentType"
+            id="field_receitaContentType"
+            formControlName="receitaContentType"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

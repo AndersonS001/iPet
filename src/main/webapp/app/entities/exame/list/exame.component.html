@@ -1,0 +1,85 @@
+<div>
+  <h2 id="page-heading" data-cy="ExameHeading">
+    <span jhiTranslate="iPetApp.exame.home.title">Exames</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="iPetApp.exame.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-exame"
+        [routerLink]="['/exame/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="iPetApp.exame.home.createLabel"> Create a new Exame </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="exames?.length === 0">
+    <span jhiTranslate="iPetApp.exame.home.notFound">No exames found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="exames && exames.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.exame.especialidade">Especialidade</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.exame.medico">Medico</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.exame.valor">Valor</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.exame.resultado">Resultado</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.exame.consulta">Consulta</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exame of exames; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/exame', exame.id, 'view']">{{ exame.id }}</a>
+          </td>
+          <td>{{ exame.especialidade }}</td>
+          <td>{{ exame.medico }}</td>
+          <td>{{ exame.valor }}</td>
+          <td>
+            <a *ngIf="exame.resultado" (click)="openFile(exame.resultado, exame.resultadoContentType)" jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="exame.resultado">{{ exame.resultadoContentType }}, {{ byteSize(exame.resultado) }}</span>
+          </td>
+          <td>
+            <div *ngIf="exame.consulta">
+              <a [routerLink]="['/consulta', exame.consulta?.id, 'view']">{{ exame.consulta?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/exame', exame.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/exame', exame.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(exame)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

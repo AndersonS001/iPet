@@ -1,0 +1,46 @@
+{
+  "name": "Consulta",
+  "fields": [
+    {
+      "fieldName": "especialidade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "medico",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "receita",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "exame",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "exame"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "remedios",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "remedios"
+    }
+  ],
+  "entityTableName": "consulta",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210627230111"
+}

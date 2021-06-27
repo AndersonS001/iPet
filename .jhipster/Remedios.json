@@ -1,0 +1,36 @@
+{
+  "name": "Remedios",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fabricante",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "TipoRemedio",
+      "fieldValues": "COMPRIMIDO,LIQUIDO,CAPSULA"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "remedios",
+      "relationshipName": "consulta"
+    }
+  ],
+  "entityTableName": "remedios",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210627230110"
+}

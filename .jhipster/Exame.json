@@ -1,0 +1,40 @@
+{
+  "name": "Exame",
+  "fields": [
+    {
+      "fieldName": "especialidade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "medico",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "resultado",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "exame",
+      "relationshipName": "consulta"
+    }
+  ],
+  "entityTableName": "exame",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210627230109"
+}

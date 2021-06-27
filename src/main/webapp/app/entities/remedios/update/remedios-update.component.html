@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-remedios-heading" data-cy="RemediosCreateUpdateHeading" jhiTranslate="iPetApp.remedios.home.createOrEditLabel">
+        Create or edit a Remedios
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.remedios.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.remedios.fabricante" for="field_fabricante">Fabricante</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fabricante"
+            id="field_fabricante"
+            data-cy="fabricante"
+            formControlName="fabricante"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.remedios.tipo" for="field_tipo">Tipo</label>
+          <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo" data-cy="tipo">
+            <option [ngValue]="null">{{ 'iPetApp.TipoRemedio.null' | translate }}</option>
+            <option value="COMPRIMIDO">{{ 'iPetApp.TipoRemedio.COMPRIMIDO' | translate }}</option>
+            <option value="LIQUIDO">{{ 'iPetApp.TipoRemedio.LIQUIDO' | translate }}</option>
+            <option value="CAPSULA">{{ 'iPetApp.TipoRemedio.CAPSULA' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.remedios.consulta" for="field_consulta">Consulta</label>
+          <select class="form-control" id="field_consulta" data-cy="consulta" name="consulta" formControlName="consulta">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="consultaOption.id === editForm.get('consulta')!.value?.id ? editForm.get('consulta')!.value : consultaOption"
+              *ngFor="let consultaOption of consultasSharedCollection; trackBy: trackConsultaById"
+            >
+              {{ consultaOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

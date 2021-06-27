@@ -1,0 +1,9 @@
+{
+  "iPetApp": {
+    "Especie": {
+      "null": "",
+      "CACHORRO": "CACHORRO",
+      "GATO": "GATO"
+    }
+  }
+}

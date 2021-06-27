@@ -1,0 +1,7 @@
+export enum TipoVacina {
+  ANTIRRABICA = 'ANTIRRABICA',
+
+  GRIPE = 'GRIPE',
+
+  LEISHMANIOSE = 'LEISHMANIOSE',
+}

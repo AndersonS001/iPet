@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="convenio">
+      <h2 data-cy="convenioDetailsHeading"><span jhiTranslate="iPetApp.convenio.detail.title">Convenio</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ convenio.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.convenio.nome">Nome</span></dt>
+        <dd>
+          <span>{{ convenio.nome }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.convenio.email">Email</span></dt>
+        <dd>
+          <span>{{ convenio.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.convenio.valor">Valor</span></dt>
+        <dd>
+          <span>{{ convenio.valor }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/convenio', convenio.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

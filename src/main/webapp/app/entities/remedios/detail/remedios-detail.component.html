@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="remedios">
+      <h2 data-cy="remediosDetailsHeading"><span jhiTranslate="iPetApp.remedios.detail.title">Remedios</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ remedios.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.remedios.nome">Nome</span></dt>
+        <dd>
+          <span>{{ remedios.nome }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.remedios.fabricante">Fabricante</span></dt>
+        <dd>
+          <span>{{ remedios.fabricante }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.remedios.tipo">Tipo</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'iPetApp.TipoRemedio.' + remedios.tipo }}">{{ remedios.tipo }}</span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.remedios.consulta">Consulta</span></dt>
+        <dd>
+          <div *ngIf="remedios.consulta">
+            <a [routerLink]="['/consulta', remedios.consulta?.id, 'view']">{{ remedios.consulta?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/remedios', remedios.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

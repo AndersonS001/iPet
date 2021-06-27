@@ -1,0 +1,83 @@
+<div>
+  <h2 id="page-heading" data-cy="PetHeading">
+    <span jhiTranslate="iPetApp.pet.home.title">Pets</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="iPetApp.pet.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-pet"
+        [routerLink]="['/pet/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="iPetApp.pet.home.createLabel"> Create a new Pet </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pets?.length === 0">
+    <span jhiTranslate="iPetApp.pet.home.notFound">No pets found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="pets && pets.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nome"><span jhiTranslate="iPetApp.pet.nome">Nome</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dataNascimento">
+            <span jhiTranslate="iPetApp.pet.dataNascimento">Data Nascimento</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="especie"><span jhiTranslate="iPetApp.pet.especie">Especie</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="peso"><span jhiTranslate="iPetApp.pet.peso">Peso</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="foto"><span jhiTranslate="iPetApp.pet.foto">Foto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let pet of pets; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/pet', pet.id, 'view']">{{ pet.id }}</a>
+          </td>
+          <td>{{ pet.nome }}</td>
+          <td>{{ pet.dataNascimento | formatMediumDate }}</td>
+          <td jhiTranslate="{{ 'iPetApp.Especie.' + pet.especie }}">{{ pet.especie }}</td>
+          <td>{{ pet.peso }}</td>
+          <td>
+            <a *ngIf="pet.foto" (click)="openFile(pet.foto, pet.fotoContentType)">
+              <img [src]="'data:' + pet.fotoContentType + ';base64,' + pet.foto" style="max-height: 30px" alt="pet image" />
+            </a>
+            <span *ngIf="pet.foto">{{ pet.fotoContentType }}, {{ byteSize(pet.foto) }}</span>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/pet', pet.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/pet', pet.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(pet)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

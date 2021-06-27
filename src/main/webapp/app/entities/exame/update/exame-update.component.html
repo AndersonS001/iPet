@@ -1,0 +1,108 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-exame-heading" data-cy="ExameCreateUpdateHeading" jhiTranslate="iPetApp.exame.home.createOrEditLabel">
+        Create or edit a Exame
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.exame.especialidade" for="field_especialidade">Especialidade</label>
+          <input
+            type="text"
+            class="form-control"
+            name="especialidade"
+            id="field_especialidade"
+            data-cy="especialidade"
+            formControlName="especialidade"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.exame.medico" for="field_medico">Medico</label>
+          <input type="text" class="form-control" name="medico" id="field_medico" data-cy="medico" formControlName="medico" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.exame.valor" for="field_valor">Valor</label>
+          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.exame.resultado" for="field_resultado">Resultado</label>
+          <div>
+            <div *ngIf="editForm.get('resultado')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('resultado')!.value, editForm.get('resultadoContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('resultadoContentType')!.value }}, {{ byteSize(editForm.get('resultado')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ resultado: null }); editForm.patchValue({ resultadoContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_resultado"
+              data-cy="resultado"
+              (change)="setFileData($event, 'resultado', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="resultado" id="field_resultado" data-cy="resultado" formControlName="resultado" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="resultadoContentType"
+            id="field_resultadoContentType"
+            formControlName="resultadoContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.exame.consulta" for="field_consulta">Consulta</label>
+          <select class="form-control" id="field_consulta" data-cy="consulta" name="consulta" formControlName="consulta">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="consultaOption.id === editForm.get('consulta')!.value?.id ? editForm.get('consulta')!.value : consultaOption"
+              *ngFor="let consultaOption of consultasSharedCollection; trackBy: trackConsultaById"
+            >
+              {{ consultaOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
