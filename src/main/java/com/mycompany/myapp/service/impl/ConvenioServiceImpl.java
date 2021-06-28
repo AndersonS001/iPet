@@ -42,8 +42,8 @@ public class ConvenioServiceImpl implements ConvenioService {
                     if (convenio.getNome() != null) {
                         existingConvenio.setNome(convenio.getNome());
                     }
-                    if (convenio.getEmail() != null) {
-                        existingConvenio.setEmail(convenio.getEmail());
+                    if (convenio.getPlano() != null) {
+                        existingConvenio.setPlano(convenio.getPlano());
                     }
                     if (convenio.getValor() != null) {
                         existingConvenio.setValor(convenio.getValor());

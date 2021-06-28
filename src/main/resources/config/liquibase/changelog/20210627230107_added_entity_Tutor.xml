@@ -20,6 +20,9 @@
             <column name="email" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="idade" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="data_nascimento" type="date">
                 <constraints nullable="true" />
             </column>
@@ -48,6 +51,7 @@
             <column name="id" type="numeric"/>
             <column name="nome" type="string"/>
             <column name="email" type="string"/>
+            <column name="idade" type="numeric"/>
             <column name="data_nascimento" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

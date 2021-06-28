@@ -15,12 +15,13 @@ entity Pet {
 entity Tutor {
 	nome String,
     email String,
+    idade Integer,
     dataNascimento LocalDate
 }
 
 entity Convenio {
 	nome String,
-    email String,
+    plano String,
     valor Double
 }
 

@@ -23,6 +23,7 @@ export class TutorUpdateComponent implements OnInit {
     id: [],
     nome: [],
     email: [],
+    idade: [],
     dataNascimento: [],
     pet: [],
   });
@@ -84,6 +85,7 @@ export class TutorUpdateComponent implements OnInit {
       id: tutor.id,
       nome: tutor.nome,
       email: tutor.email,
+      idade: tutor.idade,
       dataNascimento: tutor.dataNascimento,
       pet: tutor.pet,
     });
@@ -105,6 +107,7 @@ export class TutorUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nome: this.editForm.get(['nome'])!.value,
       email: this.editForm.get(['email'])!.value,
+      idade: this.editForm.get(['idade'])!.value,
       dataNascimento: this.editForm.get(['dataNascimento'])!.value,
       pet: this.editForm.get(['pet'])!.value,
     };

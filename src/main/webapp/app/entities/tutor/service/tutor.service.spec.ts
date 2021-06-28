@@ -28,6 +28,7 @@ describe('Service Tests', () => {
         id: 0,
         nome: 'AAAAAAA',
         email: 'AAAAAAA',
+        idade: 0,
         dataNascimento: currentDate,
       };
     });
@@ -77,6 +78,7 @@ describe('Service Tests', () => {
             id: 1,
             nome: 'BBBBBB',
             email: 'BBBBBB',
+            idade: 1,
             dataNascimento: currentDate.format(DATE_FORMAT),
           },
           elemDefault
@@ -126,6 +128,7 @@ describe('Service Tests', () => {
             id: 1,
             nome: 'BBBBBB',
             email: 'BBBBBB',
+            idade: 1,
             dataNascimento: currentDate.format(DATE_FORMAT),
           },
           elemDefault
@@ -183,7 +186,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Tutor to an array', () => {
-          const tutorArray: ITutor[] = [{ id: 123 }, { id: 456 }, { id: 43240 }];
+          const tutorArray: ITutor[] = [{ id: 123 }, { id: 456 }, { id: 53111 }];
           const tutorCollection: ITutor[] = [{ id: 123 }];
           expectedResult = service.addTutorToCollectionIfMissing(tutorCollection, ...tutorArray);
           expect(expectedResult).toHaveLength(3);

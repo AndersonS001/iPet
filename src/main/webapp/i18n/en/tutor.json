@@ -20,6 +20,7 @@
       "id": "ID",
       "nome": "Nome",
       "email": "Email",
+      "idade": "Idade",
       "dataNascimento": "Data Nascimento",
       "pet": "Pet"
     }

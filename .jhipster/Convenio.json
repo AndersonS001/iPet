@@ -6,7 +6,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "email",
+      "fieldName": "plano",
       "fieldType": "String"
     },
     {

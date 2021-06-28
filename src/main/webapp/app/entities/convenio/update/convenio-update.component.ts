@@ -18,7 +18,7 @@ export class ConvenioUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     nome: [],
-    email: [],
+    plano: [],
     valor: [],
   });
 
@@ -67,7 +67,7 @@ export class ConvenioUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: convenio.id,
       nome: convenio.nome,
-      email: convenio.email,
+      plano: convenio.plano,
       valor: convenio.valor,
     });
   }
@@ -77,7 +77,7 @@ export class ConvenioUpdateComponent implements OnInit {
       ...new Convenio(),
       id: this.editForm.get(['id'])!.value,
       nome: this.editForm.get(['nome'])!.value,
-      email: this.editForm.get(['email'])!.value,
+      plano: this.editForm.get(['plano'])!.value,
       valor: this.editForm.get(['valor'])!.value,
     };
   }

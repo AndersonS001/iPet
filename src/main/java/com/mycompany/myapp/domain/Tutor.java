@@ -28,6 +28,9 @@ public class Tutor implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "idade")
+    private Integer idade;
+
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
@@ -73,6 +76,19 @@ public class Tutor implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getIdade() {
+        return this.idade;
+    }
+
+    public Tutor idade(Integer idade) {
+        this.idade = idade;
+        return this;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public LocalDate getDataNascimento() {
@@ -127,6 +143,7 @@ public class Tutor implements Serializable {
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
             ", email='" + getEmail() + "'" +
+            ", idade=" + getIdade() +
             ", dataNascimento='" + getDataNascimento() + "'" +
             "}";
     }

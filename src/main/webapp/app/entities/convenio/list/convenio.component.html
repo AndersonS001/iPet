@@ -34,7 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.convenio.nome">Nome</span></th>
-          <th scope="col"><span jhiTranslate="iPetApp.convenio.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.convenio.plano">Plano</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.convenio.valor">Valor</span></th>
           <th scope="col"></th>
         </tr>
@@ -45,7 +45,7 @@
             <a [routerLink]="['/convenio', convenio.id, 'view']">{{ convenio.id }}</a>
           </td>
           <td>{{ convenio.nome }}</td>
-          <td>{{ convenio.email }}</td>
+          <td>{{ convenio.plano }}</td>
           <td>{{ convenio.valor }}</td>
           <td class="text-right">
             <div class="btn-group">

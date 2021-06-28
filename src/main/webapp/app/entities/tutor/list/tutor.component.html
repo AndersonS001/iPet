@@ -35,6 +35,7 @@
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.tutor.nome">Nome</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.tutor.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.tutor.idade">Idade</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.tutor.dataNascimento">Data Nascimento</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.tutor.pet">Pet</span></th>
           <th scope="col"></th>
@@ -47,6 +48,7 @@
           </td>
           <td>{{ tutor.nome }}</td>
           <td>{{ tutor.email }}</td>
+          <td>{{ tutor.idade }}</td>
           <td>{{ tutor.dataNascimento | formatMediumDate }}</td>
           <td>
             <div *ngIf="tutor.pet">

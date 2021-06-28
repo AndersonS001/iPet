@@ -23,8 +23,8 @@ public class Convenio implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "plano")
+    private String plano;
 
     @Column(name = "valor")
     private Double valor;
@@ -56,17 +56,17 @@ public class Convenio implements Serializable {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getPlano() {
+        return this.plano;
     }
 
-    public Convenio email(String email) {
-        this.email = email;
+    public Convenio plano(String plano) {
+        this.plano = plano;
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPlano(String plano) {
+        this.plano = plano;
     }
 
     public Double getValor() {
@@ -107,7 +107,7 @@ public class Convenio implements Serializable {
         return "Convenio{" +
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", plano='" + getPlano() + "'" +
             ", valor=" + getValor() +
             "}";
     }

@@ -23,7 +23,7 @@ describe('Service Tests', () => {
       elemDefault = {
         id: 0,
         nome: 'AAAAAAA',
-        email: 'AAAAAAA',
+        plano: 'AAAAAAA',
         valor: 0,
       };
     });
@@ -61,7 +61,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             nome: 'BBBBBB',
-            email: 'BBBBBB',
+            plano: 'BBBBBB',
             valor: 1,
           },
           elemDefault
@@ -100,7 +100,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             nome: 'BBBBBB',
-            email: 'BBBBBB',
+            plano: 'BBBBBB',
             valor: 1,
           },
           elemDefault
