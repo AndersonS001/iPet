@@ -3,15 +3,13 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { IExame, Exame } from '../exame.model';
 import { ExameService } from '../service/exame.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { IConsulta } from 'app/entities/consulta/consulta.model';
-import { ConsultaService } from 'app/entities/consulta/service/consulta.service';
 
 @Component({
   selector: 'jhi-exame-update',
@@ -20,8 +18,6 @@ import { ConsultaService } from 'app/entities/consulta/service/consulta.service'
 export class ExameUpdateComponent implements OnInit {
   isSaving = false;
 
-  consultasSharedCollection: IConsulta[] = [];
-
   editForm = this.fb.group({
     id: [],
     especialidade: [],
@@ -29,14 +25,12 @@ export class ExameUpdateComponent implements OnInit {
     valor: [],
     resultado: [],
     resultadoContentType: [],
-    consulta: [],
   });
 
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected exameService: ExameService,
-    protected consultaService: ConsultaService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -44,8 +38,6 @@ export class ExameUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ exame }) => {
       this.updateForm(exame);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -80,10 +72,6 @@ export class ExameUpdateComponent implements OnInit {
     }
   }
 
-  trackConsultaById(index: number, item: IConsulta): number {
-    return item.id!;
-  }
-
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IExame>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -111,22 +99,7 @@ export class ExameUpdateComponent implements OnInit {
       valor: exame.valor,
       resultado: exame.resultado,
       resultadoContentType: exame.resultadoContentType,
-      consulta: exame.consulta,
     });
-
-    this.consultasSharedCollection = this.consultaService.addConsultaToCollectionIfMissing(this.consultasSharedCollection, exame.consulta);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.consultaService
-      .query()
-      .pipe(map((res: HttpResponse<IConsulta[]>) => res.body ?? []))
-      .pipe(
-        map((consultas: IConsulta[]) =>
-          this.consultaService.addConsultaToCollectionIfMissing(consultas, this.editForm.get('consulta')!.value)
-        )
-      )
-      .subscribe((consultas: IConsulta[]) => (this.consultasSharedCollection = consultas));
   }
 
   protected createFromForm(): IExame {
@@ -138,7 +111,6 @@ export class ExameUpdateComponent implements OnInit {
       valor: this.editForm.get(['valor'])!.value,
       resultadoContentType: this.editForm.get(['resultadoContentType'])!.value,
       resultado: this.editForm.get(['resultado'])!.value,
-      consulta: this.editForm.get(['consulta'])!.value,
     };
   }
 }

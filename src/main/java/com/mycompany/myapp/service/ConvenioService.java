@@ -3,6 +3,8 @@ package com.mycompany.myapp.service;
 import com.mycompany.myapp.domain.Convenio;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link Convenio}.
@@ -30,6 +32,14 @@ public interface ConvenioService {
      * @return the list of entities.
      */
     List<Convenio> findAll();
+
+    /**
+     * Get all the convenios with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<Convenio> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" convenio.

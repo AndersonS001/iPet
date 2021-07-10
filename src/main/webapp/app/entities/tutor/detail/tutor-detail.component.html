@@ -22,19 +22,9 @@
         <dd>
           <span>{{ tutor.email }}</span>
         </dd>
-        <dt><span jhiTranslate="iPetApp.tutor.idade">Idade</span></dt>
-        <dd>
-          <span>{{ tutor.idade }}</span>
-        </dd>
         <dt><span jhiTranslate="iPetApp.tutor.dataNascimento">Data Nascimento</span></dt>
         <dd>
           <span>{{ tutor.dataNascimento | formatMediumDate }}</span>
-        </dd>
-        <dt><span jhiTranslate="iPetApp.tutor.pet">Pet</span></dt>
-        <dd>
-          <div *ngIf="tutor.pet">
-            <a [routerLink]="['/pet', tutor.pet?.id, 'view']">{{ tutor.pet?.id }}</a>
-          </div>
         </dd>
       </dl>
 

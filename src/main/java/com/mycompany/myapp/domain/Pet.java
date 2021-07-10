@@ -45,10 +45,35 @@ public class Pet implements Serializable {
     @Column(name = "foto_content_type")
     private String fotoContentType;
 
-    @OneToMany(mappedBy = "pet")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "pet" }, allowSetters = true)
-    private Set<Tutor> tutors = new HashSet<>();
+    @JoinTable(
+        name = "rel_pet__convenio",
+        joinColumns = @JoinColumn(name = "pet_id"),
+        inverseJoinColumns = @JoinColumn(name = "convenio_id")
+    )
+    @JsonIgnoreProperties(value = { "consultas", "pets" }, allowSetters = true)
+    private Set<Convenio> convenios = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "rel_pet__vacina", joinColumns = @JoinColumn(name = "pet_id"), inverseJoinColumns = @JoinColumn(name = "vacina_id"))
+    @JsonIgnoreProperties(value = { "pets" }, allowSetters = true)
+    private Set<Vacina> vacinas = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_pet__consulta",
+        joinColumns = @JoinColumn(name = "pet_id"),
+        inverseJoinColumns = @JoinColumn(name = "consulta_id")
+    )
+    @JsonIgnoreProperties(value = { "remedios", "exames", "convenios", "pets" }, allowSetters = true)
+    private Set<Consulta> consultas = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "pets" }, allowSetters = true)
+    private Tutor tutor;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -142,35 +167,92 @@ public class Pet implements Serializable {
         this.fotoContentType = fotoContentType;
     }
 
-    public Set<Tutor> getTutors() {
-        return this.tutors;
+    public Set<Convenio> getConvenios() {
+        return this.convenios;
     }
 
-    public Pet tutors(Set<Tutor> tutors) {
-        this.setTutors(tutors);
+    public Pet convenios(Set<Convenio> convenios) {
+        this.setConvenios(convenios);
         return this;
     }
 
-    public Pet addTutor(Tutor tutor) {
-        this.tutors.add(tutor);
-        tutor.setPet(this);
+    public Pet addConvenio(Convenio convenio) {
+        this.convenios.add(convenio);
+        convenio.getPets().add(this);
         return this;
     }
 
-    public Pet removeTutor(Tutor tutor) {
-        this.tutors.remove(tutor);
-        tutor.setPet(null);
+    public Pet removeConvenio(Convenio convenio) {
+        this.convenios.remove(convenio);
+        convenio.getPets().remove(this);
         return this;
     }
 
-    public void setTutors(Set<Tutor> tutors) {
-        if (this.tutors != null) {
-            this.tutors.forEach(i -> i.setPet(null));
-        }
-        if (tutors != null) {
-            tutors.forEach(i -> i.setPet(this));
-        }
-        this.tutors = tutors;
+    public void setConvenios(Set<Convenio> convenios) {
+        this.convenios = convenios;
+    }
+
+    public Set<Vacina> getVacinas() {
+        return this.vacinas;
+    }
+
+    public Pet vacinas(Set<Vacina> vacinas) {
+        this.setVacinas(vacinas);
+        return this;
+    }
+
+    public Pet addVacina(Vacina vacina) {
+        this.vacinas.add(vacina);
+        vacina.getPets().add(this);
+        return this;
+    }
+
+    public Pet removeVacina(Vacina vacina) {
+        this.vacinas.remove(vacina);
+        vacina.getPets().remove(this);
+        return this;
+    }
+
+    public void setVacinas(Set<Vacina> vacinas) {
+        this.vacinas = vacinas;
+    }
+
+    public Set<Consulta> getConsultas() {
+        return this.consultas;
+    }
+
+    public Pet consultas(Set<Consulta> consultas) {
+        this.setConsultas(consultas);
+        return this;
+    }
+
+    public Pet addConsulta(Consulta consulta) {
+        this.consultas.add(consulta);
+        consulta.getPets().add(this);
+        return this;
+    }
+
+    public Pet removeConsulta(Consulta consulta) {
+        this.consultas.remove(consulta);
+        consulta.getPets().remove(this);
+        return this;
+    }
+
+    public void setConsultas(Set<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
+    public Tutor getTutor() {
+        return this.tutor;
+    }
+
+    public Pet tutor(Tutor tutor) {
+        this.setTutor(tutor);
+        return this;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -72,11 +72,15 @@ public class PetServiceImpl implements PetService {
         return petRepository.findAll(pageable);
     }
 
+    public Page<Pet> findAllWithEagerRelationships(Pageable pageable) {
+        return petRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Pet> findOne(Long id) {
         log.debug("Request to get Pet : {}", id);
-        return petRepository.findById(id);
+        return petRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

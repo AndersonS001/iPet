@@ -26,12 +26,6 @@
         <dd>
           <span jhiTranslate="{{ 'iPetApp.TipoRemedio.' + remedios.tipo }}">{{ remedios.tipo }}</span>
         </dd>
-        <dt><span jhiTranslate="iPetApp.remedios.consulta">Consulta</span></dt>
-        <dd>
-          <div *ngIf="remedios.consulta">
-            <a [routerLink]="['/consulta', remedios.consulta?.id, 'view']">{{ remedios.consulta?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -2,20 +2,36 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Consulta;
 import com.mycompany.myapp.repository.ConsultaRepository;
+import com.mycompany.myapp.service.ConsultaService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,6 +42,7 @@ import org.springframework.util.Base64Utils;
  * Integration tests for the {@link ConsultaResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ConsultaResourceIT {
@@ -52,6 +69,12 @@ class ConsultaResourceIT {
 
     @Autowired
     private ConsultaRepository consultaRepository;
+
+    @Mock
+    private ConsultaRepository consultaRepositoryMock;
+
+    @Mock
+    private ConsultaService consultaServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -153,6 +176,24 @@ class ConsultaResourceIT {
             .andExpect(jsonPath("$.[*].valor").value(hasItem(DEFAULT_VALOR.doubleValue())))
             .andExpect(jsonPath("$.[*].receitaContentType").value(hasItem(DEFAULT_RECEITA_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].receita").value(hasItem(Base64Utils.encodeToString(DEFAULT_RECEITA))));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllConsultasWithEagerRelationshipsIsEnabled() throws Exception {
+        when(consultaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restConsultaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(consultaServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllConsultasWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(consultaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restConsultaMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(consultaServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

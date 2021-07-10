@@ -21,10 +21,11 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
       "otherEntityName": "consulta",
       "otherEntityRelationshipName": "exame",
-      "relationshipName": "consulta"
+      "relationshipName": "consulta",
+      "ownerSide": false
     }
   ],
   "entityTableName": "exame",

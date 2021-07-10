@@ -133,10 +133,11 @@ public class ConvenioResource {
     /**
      * {@code GET  /convenios} : get all the convenios.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of convenios in body.
      */
     @GetMapping("/convenios")
-    public List<Convenio> getAllConvenios() {
+    public List<Convenio> getAllConvenios(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Convenios");
         return convenioService.findAll();
     }

@@ -23,6 +23,9 @@
       "especie": "Especie",
       "peso": "Peso",
       "foto": "Foto",
+      "convenio": "Convenio",
+      "vacina": "Vacina",
+      "consulta": "Consulta",
       "tutor": "Tutor"
     }
   }

@@ -3,12 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { ITutor, Tutor } from '../tutor.model';
 import { TutorService } from '../service/tutor.service';
-import { IPet } from 'app/entities/pet/pet.model';
-import { PetService } from 'app/entities/pet/service/pet.service';
 
 @Component({
   selector: 'jhi-tutor-update',
@@ -17,29 +15,18 @@ import { PetService } from 'app/entities/pet/service/pet.service';
 export class TutorUpdateComponent implements OnInit {
   isSaving = false;
 
-  petsSharedCollection: IPet[] = [];
-
   editForm = this.fb.group({
     id: [],
     nome: [],
     email: [],
-    idade: [],
     dataNascimento: [],
-    pet: [],
   });
 
-  constructor(
-    protected tutorService: TutorService,
-    protected petService: PetService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+  constructor(protected tutorService: TutorService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ tutor }) => {
       this.updateForm(tutor);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -55,10 +42,6 @@ export class TutorUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.tutorService.create(tutor));
     }
-  }
-
-  trackPetById(index: number, item: IPet): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITutor>>): void {
@@ -85,20 +68,8 @@ export class TutorUpdateComponent implements OnInit {
       id: tutor.id,
       nome: tutor.nome,
       email: tutor.email,
-      idade: tutor.idade,
       dataNascimento: tutor.dataNascimento,
-      pet: tutor.pet,
     });
-
-    this.petsSharedCollection = this.petService.addPetToCollectionIfMissing(this.petsSharedCollection, tutor.pet);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.petService
-      .query()
-      .pipe(map((res: HttpResponse<IPet[]>) => res.body ?? []))
-      .pipe(map((pets: IPet[]) => this.petService.addPetToCollectionIfMissing(pets, this.editForm.get('pet')!.value)))
-      .subscribe((pets: IPet[]) => (this.petsSharedCollection = pets));
   }
 
   protected createFromForm(): ITutor {
@@ -107,9 +78,7 @@ export class TutorUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nome: this.editForm.get(['nome'])!.value,
       email: this.editForm.get(['email'])!.value,
-      idade: this.editForm.get(['idade'])!.value,
       dataNascimento: this.editForm.get(['dataNascimento'])!.value,
-      pet: this.editForm.get(['pet'])!.value,
     };
   }
 }

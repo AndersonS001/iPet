@@ -26,6 +26,10 @@
     <include file="config/liquibase/changelog/20210627230107_added_entity_constraints_Tutor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210627230109_added_entity_constraints_Exame.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210627230110_added_entity_constraints_Remedios.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210627230105_added_entity_constraints_Vacina.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210627230108_added_entity_constraints_Convenio.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210627230111_added_entity_constraints_Consulta.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210627230106_added_entity_constraints_Pet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

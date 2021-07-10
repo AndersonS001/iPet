@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,14 +61,18 @@ public class ConvenioServiceImpl implements ConvenioService {
     @Transactional(readOnly = true)
     public List<Convenio> findAll() {
         log.debug("Request to get all Convenios");
-        return convenioRepository.findAll();
+        return convenioRepository.findAllWithEagerRelationships();
+    }
+
+    public Page<Convenio> findAllWithEagerRelationships(Pageable pageable) {
+        return convenioRepository.findAllWithEagerRelationships(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Convenio> findOne(Long id) {
         log.debug("Request to get Convenio : {}", id);
-        return convenioRepository.findById(id);
+        return convenioRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

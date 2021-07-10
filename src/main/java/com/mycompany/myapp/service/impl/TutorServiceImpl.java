@@ -45,9 +45,6 @@ public class TutorServiceImpl implements TutorService {
                     if (tutor.getEmail() != null) {
                         existingTutor.setEmail(tutor.getEmail());
                     }
-                    if (tutor.getIdade() != null) {
-                        existingTutor.setIdade(tutor.getIdade());
-                    }
                     if (tutor.getDataNascimento() != null) {
                         existingTutor.setDataNascimento(tutor.getDataNascimento());
                     }

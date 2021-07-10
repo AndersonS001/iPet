@@ -27,6 +27,18 @@
           <label class="form-control-label" jhiTranslate="iPetApp.convenio.valor" for="field_valor">Valor</label>
           <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.convenio.consulta" for="field_consultas">Consulta</label>
+          <select class="form-control" id="field_consultas" data-cy="consulta" multiple name="consultas" formControlName="consultas">
+            <option
+              [ngValue]="getSelectedConsulta(consultaOption, editForm.get('consultas')!.value)"
+              *ngFor="let consultaOption of consultasSharedCollection; trackBy: trackConsultaById"
+            >
+              {{ consultaOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

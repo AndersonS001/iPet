@@ -26,6 +26,13 @@
         <dd>
           <span>{{ convenio.valor }}</span>
         </dd>
+        <dt><span jhiTranslate="iPetApp.convenio.consulta">Consulta</span></dt>
+        <dd>
+          <span *ngFor="let consulta of convenio.consultas; let last = last">
+            <a [routerLink]="['/consulta', consulta?.id, 'view']">{{ consulta.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -133,10 +133,11 @@ public class ConsultaResource {
     /**
      * {@code GET  /consultas} : get all the consultas.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of consultas in body.
      */
     @GetMapping("/consultas")
-    public List<Consulta> getAllConsultas() {
+    public List<Consulta> getAllConsultas(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Consultas");
         return consultaService.findAll();
     }

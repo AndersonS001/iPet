@@ -2,6 +2,8 @@ package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -37,9 +39,10 @@ public class Exame implements Serializable {
     @Column(name = "resultado_content_type")
     private String resultadoContentType;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "exames", "remedios" }, allowSetters = true)
-    private Consulta consulta;
+    @ManyToMany(mappedBy = "exames")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "remedios", "exames", "convenios", "pets" }, allowSetters = true)
+    private Set<Consulta> consultas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -120,17 +123,35 @@ public class Exame implements Serializable {
         this.resultadoContentType = resultadoContentType;
     }
 
-    public Consulta getConsulta() {
-        return this.consulta;
+    public Set<Consulta> getConsultas() {
+        return this.consultas;
     }
 
-    public Exame consulta(Consulta consulta) {
-        this.setConsulta(consulta);
+    public Exame consultas(Set<Consulta> consultas) {
+        this.setConsultas(consultas);
         return this;
     }
 
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
+    public Exame addConsulta(Consulta consulta) {
+        this.consultas.add(consulta);
+        consulta.getExames().add(this);
+        return this;
+    }
+
+    public Exame removeConsulta(Consulta consulta) {
+        this.consultas.remove(consulta);
+        consulta.getExames().remove(this);
+        return this;
+    }
+
+    public void setConsultas(Set<Consulta> consultas) {
+        if (this.consultas != null) {
+            this.consultas.forEach(i -> i.removeExame(this));
+        }
+        if (consultas != null) {
+            consultas.forEach(i -> i.addExame(this));
+        }
+        this.consultas = consultas;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -15,7 +15,6 @@ entity Pet {
 entity Tutor {
 	nome String,
     email String,
-    idade Integer,
     dataNascimento LocalDate
 }
 
@@ -45,10 +44,17 @@ entity Consulta {
     receita Blob
 }
 
-relationship OneToMany {
-	Consulta to Exame,
+relationship OneToMany{
+	Tutor to Pet
+}
+
+relationship ManyToMany{  
+    Pet to Convenio,
+    Pet to Vacina,
+    Convenio to Consulta,
+    Pet to Consulta,
     Consulta to Remedios,
-    Pet to Tutor
+    Consulta to Exame
 }
 
 enum TipoRemedio{

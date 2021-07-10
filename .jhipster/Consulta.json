@@ -21,16 +21,32 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "exame",
-      "otherEntityRelationshipName": "consulta",
-      "relationshipName": "exame"
-    },
-    {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
       "otherEntityName": "remedios",
       "otherEntityRelationshipName": "consulta",
-      "relationshipName": "remedios"
+      "relationshipName": "remedios",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "exame",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "exame",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "convenio",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "convenio",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "pet",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "pet",
+      "ownerSide": false
     }
   ],
   "entityTableName": "consulta",

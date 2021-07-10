@@ -32,8 +32,47 @@
             <column name="foto_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="tutor_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+    </changeSet>
+
+    <changeSet id="20210627230106-1-relations" author="jhipster">
+
+        <createTable tableName="rel_pet__convenio">
+            <column name="convenio_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pet_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="pet_id, convenio_id" tableName="rel_pet__convenio"/>
+
+        <createTable tableName="rel_pet__vacina">
+            <column name="vacina_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pet_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="pet_id, vacina_id" tableName="rel_pet__vacina"/>
+
+        <createTable tableName="rel_pet__consulta">
+            <column name="consulta_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pet_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="pet_id, consulta_id" tableName="rel_pet__consulta"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

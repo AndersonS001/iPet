@@ -37,9 +37,6 @@ class TutorResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_IDADE = 1;
-    private static final Integer UPDATED_IDADE = 2;
-
     private static final LocalDate DEFAULT_DATA_NASCIMENTO = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATA_NASCIMENTO = LocalDate.now(ZoneId.systemDefault());
 
@@ -67,7 +64,7 @@ class TutorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Tutor createEntity(EntityManager em) {
-        Tutor tutor = new Tutor().nome(DEFAULT_NOME).email(DEFAULT_EMAIL).idade(DEFAULT_IDADE).dataNascimento(DEFAULT_DATA_NASCIMENTO);
+        Tutor tutor = new Tutor().nome(DEFAULT_NOME).email(DEFAULT_EMAIL).dataNascimento(DEFAULT_DATA_NASCIMENTO);
         return tutor;
     }
 
@@ -78,7 +75,7 @@ class TutorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Tutor createUpdatedEntity(EntityManager em) {
-        Tutor tutor = new Tutor().nome(UPDATED_NOME).email(UPDATED_EMAIL).idade(UPDATED_IDADE).dataNascimento(UPDATED_DATA_NASCIMENTO);
+        Tutor tutor = new Tutor().nome(UPDATED_NOME).email(UPDATED_EMAIL).dataNascimento(UPDATED_DATA_NASCIMENTO);
         return tutor;
     }
 
@@ -102,7 +99,6 @@ class TutorResourceIT {
         Tutor testTutor = tutorList.get(tutorList.size() - 1);
         assertThat(testTutor.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testTutor.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testTutor.getIdade()).isEqualTo(DEFAULT_IDADE);
         assertThat(testTutor.getDataNascimento()).isEqualTo(DEFAULT_DATA_NASCIMENTO);
     }
 
@@ -138,7 +134,6 @@ class TutorResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(tutor.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].idade").value(hasItem(DEFAULT_IDADE)))
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())));
     }
 
@@ -156,7 +151,6 @@ class TutorResourceIT {
             .andExpect(jsonPath("$.id").value(tutor.getId().intValue()))
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.idade").value(DEFAULT_IDADE))
             .andExpect(jsonPath("$.dataNascimento").value(DEFAULT_DATA_NASCIMENTO.toString()));
     }
 
@@ -179,7 +173,7 @@ class TutorResourceIT {
         Tutor updatedTutor = tutorRepository.findById(tutor.getId()).get();
         // Disconnect from session so that the updates on updatedTutor are not directly saved in db
         em.detach(updatedTutor);
-        updatedTutor.nome(UPDATED_NOME).email(UPDATED_EMAIL).idade(UPDATED_IDADE).dataNascimento(UPDATED_DATA_NASCIMENTO);
+        updatedTutor.nome(UPDATED_NOME).email(UPDATED_EMAIL).dataNascimento(UPDATED_DATA_NASCIMENTO);
 
         restTutorMockMvc
             .perform(
@@ -195,7 +189,6 @@ class TutorResourceIT {
         Tutor testTutor = tutorList.get(tutorList.size() - 1);
         assertThat(testTutor.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testTutor.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testTutor.getIdade()).isEqualTo(UPDATED_IDADE);
         assertThat(testTutor.getDataNascimento()).isEqualTo(UPDATED_DATA_NASCIMENTO);
     }
 
@@ -283,7 +276,6 @@ class TutorResourceIT {
         Tutor testTutor = tutorList.get(tutorList.size() - 1);
         assertThat(testTutor.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testTutor.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testTutor.getIdade()).isEqualTo(DEFAULT_IDADE);
         assertThat(testTutor.getDataNascimento()).isEqualTo(DEFAULT_DATA_NASCIMENTO);
     }
 
@@ -299,7 +291,7 @@ class TutorResourceIT {
         Tutor partialUpdatedTutor = new Tutor();
         partialUpdatedTutor.setId(tutor.getId());
 
-        partialUpdatedTutor.nome(UPDATED_NOME).email(UPDATED_EMAIL).idade(UPDATED_IDADE).dataNascimento(UPDATED_DATA_NASCIMENTO);
+        partialUpdatedTutor.nome(UPDATED_NOME).email(UPDATED_EMAIL).dataNascimento(UPDATED_DATA_NASCIMENTO);
 
         restTutorMockMvc
             .perform(
@@ -315,7 +307,6 @@ class TutorResourceIT {
         Tutor testTutor = tutorList.get(tutorList.size() - 1);
         assertThat(testTutor.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testTutor.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testTutor.getIdade()).isEqualTo(UPDATED_IDADE);
         assertThat(testTutor.getDataNascimento()).isEqualTo(UPDATED_DATA_NASCIMENTO);
     }
 

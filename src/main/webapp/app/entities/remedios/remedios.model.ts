@@ -6,7 +6,7 @@ export interface IRemedios {
   nome?: string | null;
   fabricante?: string | null;
   tipo?: TipoRemedio | null;
-  consulta?: IConsulta | null;
+  consultas?: IConsulta[] | null;
 }
 
 export class Remedios implements IRemedios {
@@ -15,7 +15,7 @@ export class Remedios implements IRemedios {
     public nome?: string | null,
     public fabricante?: string | null,
     public tipo?: TipoRemedio | null,
-    public consulta?: IConsulta | null
+    public consultas?: IConsulta[] | null
   ) {}
 }
 

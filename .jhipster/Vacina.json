@@ -15,7 +15,15 @@
       "fieldValues": "ANTIRRABICA,GRIPE,LEISHMANIOSE"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "pet",
+      "otherEntityRelationshipName": "vacina",
+      "relationshipName": "pet",
+      "ownerSide": false
+    }
+  ],
   "entityTableName": "vacina",
   "dto": "no",
   "pagination": "no",

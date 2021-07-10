@@ -1,4 +1,5 @@
 import * as dayjs from 'dayjs';
+import { IPet } from 'app/entities/pet/pet.model';
 import { TipoVacina } from 'app/entities/enumerations/tipo-vacina.model';
 
 export interface IVacina {
@@ -6,6 +7,7 @@ export interface IVacina {
   nome?: string | null;
   dataAplicacao?: dayjs.Dayjs | null;
   tipo?: TipoVacina | null;
+  pets?: IPet[] | null;
 }
 
 export class Vacina implements IVacina {
@@ -13,7 +15,8 @@ export class Vacina implements IVacina {
     public id?: number,
     public nome?: string | null,
     public dataAplicacao?: dayjs.Dayjs | null,
-    public tipo?: TipoVacina | null
+    public tipo?: TipoVacina | null,
+    public pets?: IPet[] | null
   ) {}
 }
 

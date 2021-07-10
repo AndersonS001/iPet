@@ -10,17 +10,13 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "idade",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "dataNascimento",
       "fieldType": "LocalDate"
     }
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "pet",
       "otherEntityRelationshipName": "tutor",
       "relationshipName": "pet"

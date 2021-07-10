@@ -33,6 +33,20 @@
             {{ consulta.receitaContentType }}, {{ byteSize(consulta.receita) }}
           </div>
         </dd>
+        <dt><span jhiTranslate="iPetApp.consulta.remedios">Remedios</span></dt>
+        <dd>
+          <span *ngFor="let remedios of consulta.remedios; let last = last">
+            <a [routerLink]="['/remedios', remedios?.id, 'view']">{{ remedios.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.consulta.exame">Exame</span></dt>
+        <dd>
+          <span *ngFor="let exame of consulta.exames; let last = last">
+            <a [routerLink]="['/exame', exame?.id, 'view']">{{ exame.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

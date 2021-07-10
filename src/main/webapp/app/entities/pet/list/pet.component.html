@@ -40,6 +40,7 @@
           <th scope="col" jhiSortBy="especie"><span jhiTranslate="iPetApp.pet.especie">Especie</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="peso"><span jhiTranslate="iPetApp.pet.peso">Peso</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="foto"><span jhiTranslate="iPetApp.pet.foto">Foto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tutor.id"><span jhiTranslate="iPetApp.pet.tutor">Tutor</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -57,6 +58,11 @@
               <img [src]="'data:' + pet.fotoContentType + ';base64,' + pet.foto" style="max-height: 30px" alt="pet image" />
             </a>
             <span *ngIf="pet.foto">{{ pet.fotoContentType }}, {{ byteSize(pet.foto) }}</span>
+          </td>
+          <td>
+            <div *ngIf="pet.tutor">
+              <a [routerLink]="['/tutor', pet.tutor?.id, 'view']">{{ pet.tutor?.id }}</a>
+            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">

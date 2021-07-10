@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,14 +67,18 @@ public class ConsultaServiceImpl implements ConsultaService {
     @Transactional(readOnly = true)
     public List<Consulta> findAll() {
         log.debug("Request to get all Consultas");
-        return consultaRepository.findAll();
+        return consultaRepository.findAllWithEagerRelationships();
+    }
+
+    public Page<Consulta> findAllWithEagerRelationships(Pageable pageable) {
+        return consultaRepository.findAllWithEagerRelationships(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Consulta> findOne(Long id) {
         log.debug("Request to get Consulta : {}", id);
-        return consultaRepository.findById(id);
+        return consultaRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

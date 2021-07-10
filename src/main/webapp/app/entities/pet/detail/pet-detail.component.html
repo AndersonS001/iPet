@@ -39,6 +39,33 @@
             {{ pet.fotoContentType }}, {{ byteSize(pet.foto) }}
           </div>
         </dd>
+        <dt><span jhiTranslate="iPetApp.pet.convenio">Convenio</span></dt>
+        <dd>
+          <span *ngFor="let convenio of pet.convenios; let last = last">
+            <a [routerLink]="['/convenio', convenio?.id, 'view']">{{ convenio.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.vacina">Vacina</span></dt>
+        <dd>
+          <span *ngFor="let vacina of pet.vacinas; let last = last">
+            <a [routerLink]="['/vacina', vacina?.id, 'view']">{{ vacina.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.consulta">Consulta</span></dt>
+        <dd>
+          <span *ngFor="let consulta of pet.consultas; let last = last">
+            <a [routerLink]="['/consulta', consulta?.id, 'view']">{{ consulta.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="iPetApp.pet.tutor">Tutor</span></dt>
+        <dd>
+          <div *ngIf="pet.tutor">
+            <a [routerLink]="['/tutor', pet.tutor?.id, 'view']">{{ pet.tutor?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

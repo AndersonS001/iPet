@@ -22,8 +22,10 @@
       "medico": "Medico",
       "valor": "Valor",
       "receita": "Receita",
+      "remedios": "Remedios",
       "exame": "Exame",
-      "remedios": "Remedios"
+      "convenio": "Convenio",
+      "pet": "Pet"
     }
   }
 }

@@ -71,6 +71,30 @@
             formControlName="receitaContentType"
           />
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.consulta.remedios" for="field_remedios">Remedios</label>
+          <select class="form-control" id="field_remedios" data-cy="remedios" multiple name="remedios" formControlName="remedios">
+            <option
+              [ngValue]="getSelectedRemedios(remediosOption, editForm.get('remedios')!.value)"
+              *ngFor="let remediosOption of remediosSharedCollection; trackBy: trackRemediosById"
+            >
+              {{ remediosOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.consulta.exame" for="field_exames">Exame</label>
+          <select class="form-control" id="field_exames" data-cy="exame" multiple name="exames" formControlName="exames">
+            <option
+              [ngValue]="getSelectedExame(exameOption, editForm.get('exames')!.value)"
+              *ngFor="let exameOption of examesSharedCollection; trackBy: trackExameById"
+            >
+              {{ exameOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

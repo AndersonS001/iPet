@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { TutorService } from '../service/tutor.service';
 import { ITutor, Tutor } from '../tutor.model';
-import { IPet } from 'app/entities/pet/pet.model';
-import { PetService } from 'app/entities/pet/service/pet.service';
 
 import { TutorUpdateComponent } from './tutor-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TutorUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let tutorService: TutorService;
-    let petService: PetService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,41 +31,18 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(TutorUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       tutorService = TestBed.inject(TutorService);
-      petService = TestBed.inject(PetService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
-      it('Should call Pet query and add missing value', () => {
-        const tutor: ITutor = { id: 456 };
-        const pet: IPet = { id: 46920 };
-        tutor.pet = pet;
-
-        const petCollection: IPet[] = [{ id: 98468 }];
-        spyOn(petService, 'query').and.returnValue(of(new HttpResponse({ body: petCollection })));
-        const additionalPets = [pet];
-        const expectedCollection: IPet[] = [...additionalPets, ...petCollection];
-        spyOn(petService, 'addPetToCollectionIfMissing').and.returnValue(expectedCollection);
-
-        activatedRoute.data = of({ tutor });
-        comp.ngOnInit();
-
-        expect(petService.query).toHaveBeenCalled();
-        expect(petService.addPetToCollectionIfMissing).toHaveBeenCalledWith(petCollection, ...additionalPets);
-        expect(comp.petsSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const tutor: ITutor = { id: 456 };
-        const pet: IPet = { id: 34311 };
-        tutor.pet = pet;
 
         activatedRoute.data = of({ tutor });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(tutor));
-        expect(comp.petsSharedCollection).toContain(pet);
       });
     });
 
@@ -133,16 +107,6 @@ describe('Component Tests', () => {
         expect(tutorService.update).toHaveBeenCalledWith(tutor);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Tracking relationships identifiers', () => {
-      describe('trackPetById', () => {
-        it('Should return tracked Pet primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackPetById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
       });
     });
   });

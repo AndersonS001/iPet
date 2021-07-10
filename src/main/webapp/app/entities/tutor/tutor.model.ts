@@ -5,9 +5,8 @@ export interface ITutor {
   id?: number;
   nome?: string | null;
   email?: string | null;
-  idade?: number | null;
   dataNascimento?: dayjs.Dayjs | null;
-  pet?: IPet | null;
+  pets?: IPet[] | null;
 }
 
 export class Tutor implements ITutor {
@@ -15,9 +14,8 @@ export class Tutor implements ITutor {
     public id?: number,
     public nome?: string | null,
     public email?: string | null,
-    public idade?: number | null,
     public dataNascimento?: dayjs.Dayjs | null,
-    public pet?: IPet | null
+    public pets?: IPet[] | null
   ) {}
 }
 

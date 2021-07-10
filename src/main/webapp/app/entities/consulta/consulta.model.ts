@@ -1,5 +1,7 @@
-import { IExame } from 'app/entities/exame/exame.model';
 import { IRemedios } from 'app/entities/remedios/remedios.model';
+import { IExame } from 'app/entities/exame/exame.model';
+import { IConvenio } from 'app/entities/convenio/convenio.model';
+import { IPet } from 'app/entities/pet/pet.model';
 
 export interface IConsulta {
   id?: number;
@@ -8,8 +10,10 @@ export interface IConsulta {
   valor?: number | null;
   receitaContentType?: string | null;
   receita?: string | null;
-  exames?: IExame[] | null;
   remedios?: IRemedios[] | null;
+  exames?: IExame[] | null;
+  convenios?: IConvenio[] | null;
+  pets?: IPet[] | null;
 }
 
 export class Consulta implements IConsulta {
@@ -20,8 +24,10 @@ export class Consulta implements IConsulta {
     public valor?: number | null,
     public receitaContentType?: string | null,
     public receita?: string | null,
+    public remedios?: IRemedios[] | null,
     public exames?: IExame[] | null,
-    public remedios?: IRemedios[] | null
+    public convenios?: IConvenio[] | null,
+    public pets?: IPet[] | null
   ) {}
 }
 

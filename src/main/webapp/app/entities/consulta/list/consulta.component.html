@@ -37,6 +37,8 @@
           <th scope="col"><span jhiTranslate="iPetApp.consulta.medico">Medico</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.consulta.valor">Valor</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.consulta.receita">Receita</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.consulta.remedios">Remedios</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.consulta.exame">Exame</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,6 +55,18 @@
               >open</a
             >
             <span *ngIf="consulta.receita">{{ consulta.receitaContentType }}, {{ byteSize(consulta.receita) }}</span>
+          </td>
+          <td>
+            <span *ngFor="let remedios of consulta.remedios; let last = last">
+              <a class="form-control-static" [routerLink]="['/remedios', remedios.id, 'view']">{{ remedios.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let exame of consulta.exames; let last = last">
+              <a class="form-control-static" [routerLink]="['/exame', exame.id, 'view']">{{ exame.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td class="text-right">
             <div class="btn-group">

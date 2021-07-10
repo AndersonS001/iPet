@@ -39,19 +39,6 @@
             <option value="CAPSULA">{{ 'iPetApp.TipoRemedio.CAPSULA' | translate }}</option>
           </select>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="iPetApp.remedios.consulta" for="field_consulta">Consulta</label>
-          <select class="form-control" id="field_consulta" data-cy="consulta" name="consulta" formControlName="consulta">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="consultaOption.id === editForm.get('consulta')!.value?.id ? editForm.get('consulta')!.value : consultaOption"
-              *ngFor="let consultaOption of consultasSharedCollection; trackBy: trackConsultaById"
-            >
-              {{ consultaOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

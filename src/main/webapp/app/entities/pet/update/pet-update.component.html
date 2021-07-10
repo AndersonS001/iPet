@@ -82,6 +82,55 @@
           <input type="hidden" class="form-control" name="foto" id="field_foto" data-cy="foto" formControlName="foto" />
           <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType" formControlName="fotoContentType" />
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.pet.convenio" for="field_convenios">Convenio</label>
+          <select class="form-control" id="field_convenios" data-cy="convenio" multiple name="convenios" formControlName="convenios">
+            <option
+              [ngValue]="getSelectedConvenio(convenioOption, editForm.get('convenios')!.value)"
+              *ngFor="let convenioOption of conveniosSharedCollection; trackBy: trackConvenioById"
+            >
+              {{ convenioOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.pet.vacina" for="field_vacinas">Vacina</label>
+          <select class="form-control" id="field_vacinas" data-cy="vacina" multiple name="vacinas" formControlName="vacinas">
+            <option
+              [ngValue]="getSelectedVacina(vacinaOption, editForm.get('vacinas')!.value)"
+              *ngFor="let vacinaOption of vacinasSharedCollection; trackBy: trackVacinaById"
+            >
+              {{ vacinaOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="iPetApp.pet.consulta" for="field_consultas">Consulta</label>
+          <select class="form-control" id="field_consultas" data-cy="consulta" multiple name="consultas" formControlName="consultas">
+            <option
+              [ngValue]="getSelectedConsulta(consultaOption, editForm.get('consultas')!.value)"
+              *ngFor="let consultaOption of consultasSharedCollection; trackBy: trackConsultaById"
+            >
+              {{ consultaOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="iPetApp.pet.tutor" for="field_tutor">Tutor</label>
+          <select class="form-control" id="field_tutor" data-cy="tutor" name="tutor" formControlName="tutor">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tutorOption.id === editForm.get('tutor')!.value?.id ? editForm.get('tutor')!.value : tutorOption"
+              *ngFor="let tutorOption of tutorsSharedCollection; trackBy: trackTutorById"
+            >
+              {{ tutorOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

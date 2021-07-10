@@ -37,7 +37,6 @@
           <th scope="col"><span jhiTranslate="iPetApp.exame.medico">Medico</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.exame.valor">Valor</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.exame.resultado">Resultado</span></th>
-          <th scope="col"><span jhiTranslate="iPetApp.exame.consulta">Consulta</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -54,11 +53,6 @@
               >open</a
             >
             <span *ngIf="exame.resultado">{{ exame.resultadoContentType }}, {{ byteSize(exame.resultado) }}</span>
-          </td>
-          <td>
-            <div *ngIf="exame.consulta">
-              <a [routerLink]="['/consulta', exame.consulta?.id, 'view']">{{ exame.consulta?.id }}</a>
-            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">

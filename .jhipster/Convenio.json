@@ -14,7 +14,22 @@
       "fieldType": "Double"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "convenio",
+      "relationshipName": "consulta",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "pet",
+      "otherEntityRelationshipName": "convenio",
+      "relationshipName": "pet",
+      "ownerSide": false
+    }
+  ],
   "entityTableName": "convenio",
   "dto": "no",
   "pagination": "no",

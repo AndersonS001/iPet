@@ -26,7 +26,28 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
+      "otherEntityName": "convenio",
+      "otherEntityRelationshipName": "pet",
+      "relationshipName": "convenio",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "vacina",
+      "otherEntityRelationshipName": "pet",
+      "relationshipName": "vacina",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "pet",
+      "relationshipName": "consulta",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
       "otherEntityName": "tutor",
       "otherEntityRelationshipName": "pet",
       "relationshipName": "tutor"

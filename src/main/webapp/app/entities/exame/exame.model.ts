@@ -7,7 +7,7 @@ export interface IExame {
   valor?: number | null;
   resultadoContentType?: string | null;
   resultado?: string | null;
-  consulta?: IConsulta | null;
+  consultas?: IConsulta[] | null;
 }
 
 export class Exame implements IExame {
@@ -18,7 +18,7 @@ export class Exame implements IExame {
     public valor?: number | null,
     public resultadoContentType?: string | null,
     public resultado?: string | null,
-    public consulta?: IConsulta | null
+    public consultas?: IConsulta[] | null
   ) {}
 }
 

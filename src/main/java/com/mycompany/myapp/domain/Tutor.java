@@ -3,6 +3,8 @@ package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,15 +30,13 @@ public class Tutor implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "idade")
-    private Integer idade;
-
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "tutors" }, allowSetters = true)
-    private Pet pet;
+    @OneToMany(mappedBy = "tutor")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "convenios", "vacinas", "consultas", "tutor" }, allowSetters = true)
+    private Set<Pet> pets = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -78,19 +78,6 @@ public class Tutor implements Serializable {
         this.email = email;
     }
 
-    public Integer getIdade() {
-        return this.idade;
-    }
-
-    public Tutor idade(Integer idade) {
-        this.idade = idade;
-        return this;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
     public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
@@ -104,17 +91,35 @@ public class Tutor implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Pet getPet() {
-        return this.pet;
+    public Set<Pet> getPets() {
+        return this.pets;
     }
 
-    public Tutor pet(Pet pet) {
-        this.setPet(pet);
+    public Tutor pets(Set<Pet> pets) {
+        this.setPets(pets);
         return this;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public Tutor addPet(Pet pet) {
+        this.pets.add(pet);
+        pet.setTutor(this);
+        return this;
+    }
+
+    public Tutor removePet(Pet pet) {
+        this.pets.remove(pet);
+        pet.setTutor(null);
+        return this;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        if (this.pets != null) {
+            this.pets.forEach(i -> i.setTutor(null));
+        }
+        if (pets != null) {
+            pets.forEach(i -> i.setTutor(this));
+        }
+        this.pets = pets;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -143,7 +148,6 @@ public class Tutor implements Serializable {
             "id=" + getId() +
             ", nome='" + getNome() + "'" +
             ", email='" + getEmail() + "'" +
-            ", idade=" + getIdade() +
             ", dataNascimento='" + getDataNascimento() + "'" +
             "}";
     }

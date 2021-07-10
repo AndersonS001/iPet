@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Consulta.
+    -->
+    <changeSet id="20210627230111-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="consulta_id"
+                                 baseTableName="rel_consulta__remedios"
+                                 constraintName="fk_rel_consulta__remedios__consulta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="consulta"/>
+
+        <addForeignKeyConstraint baseColumnNames="remedios_id"
+                                 baseTableName="rel_consulta__remedios"
+                                 constraintName="fk_rel_consulta__remedios__remedios_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="remedios"/>
+
+        <addForeignKeyConstraint baseColumnNames="consulta_id"
+                                 baseTableName="rel_consulta__exame"
+                                 constraintName="fk_rel_consulta__exame__consulta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="consulta"/>
+
+        <addForeignKeyConstraint baseColumnNames="exame_id"
+                                 baseTableName="rel_consulta__exame"
+                                 constraintName="fk_rel_consulta__exame__exame_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exame"/>
+    </changeSet>
+</databaseChangeLog>

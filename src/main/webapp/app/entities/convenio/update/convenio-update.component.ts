@@ -3,10 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IConvenio, Convenio } from '../convenio.model';
 import { ConvenioService } from '../service/convenio.service';
+import { IConsulta } from 'app/entities/consulta/consulta.model';
+import { ConsultaService } from 'app/entities/consulta/service/consulta.service';
 
 @Component({
   selector: 'jhi-convenio-update',
@@ -15,18 +17,28 @@ import { ConvenioService } from '../service/convenio.service';
 export class ConvenioUpdateComponent implements OnInit {
   isSaving = false;
 
+  consultasSharedCollection: IConsulta[] = [];
+
   editForm = this.fb.group({
     id: [],
     nome: [],
     plano: [],
     valor: [],
+    consultas: [],
   });
 
-  constructor(protected convenioService: ConvenioService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected convenioService: ConvenioService,
+    protected consultaService: ConsultaService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ convenio }) => {
       this.updateForm(convenio);
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -42,6 +54,21 @@ export class ConvenioUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.convenioService.create(convenio));
     }
+  }
+
+  trackConsultaById(index: number, item: IConsulta): number {
+    return item.id!;
+  }
+
+  getSelectedConsulta(option: IConsulta, selectedVals?: IConsulta[]): IConsulta {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IConvenio>>): void {
@@ -69,7 +96,25 @@ export class ConvenioUpdateComponent implements OnInit {
       nome: convenio.nome,
       plano: convenio.plano,
       valor: convenio.valor,
+      consultas: convenio.consultas,
     });
+
+    this.consultasSharedCollection = this.consultaService.addConsultaToCollectionIfMissing(
+      this.consultasSharedCollection,
+      ...(convenio.consultas ?? [])
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.consultaService
+      .query()
+      .pipe(map((res: HttpResponse<IConsulta[]>) => res.body ?? []))
+      .pipe(
+        map((consultas: IConsulta[]) =>
+          this.consultaService.addConsultaToCollectionIfMissing(consultas, ...(this.editForm.get('consultas')!.value ?? []))
+        )
+      )
+      .subscribe((consultas: IConsulta[]) => (this.consultasSharedCollection = consultas));
   }
 
   protected createFromForm(): IConvenio {
@@ -79,6 +124,7 @@ export class ConvenioUpdateComponent implements OnInit {
       nome: this.editForm.get(['nome'])!.value,
       plano: this.editForm.get(['plano'])!.value,
       valor: this.editForm.get(['valor'])!.value,
+      consultas: this.editForm.get(['consultas'])!.value,
     };
   }
 }

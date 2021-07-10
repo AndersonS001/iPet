@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { RemediosService } from '../service/remedios.service';
 import { IRemedios, Remedios } from '../remedios.model';
-import { IConsulta } from 'app/entities/consulta/consulta.model';
-import { ConsultaService } from 'app/entities/consulta/service/consulta.service';
 
 import { RemediosUpdateComponent } from './remedios-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<RemediosUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let remediosService: RemediosService;
-    let consultaService: ConsultaService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,41 +31,18 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(RemediosUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       remediosService = TestBed.inject(RemediosService);
-      consultaService = TestBed.inject(ConsultaService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
-      it('Should call Consulta query and add missing value', () => {
-        const remedios: IRemedios = { id: 456 };
-        const consulta: IConsulta = { id: 66546 };
-        remedios.consulta = consulta;
-
-        const consultaCollection: IConsulta[] = [{ id: 69150 }];
-        spyOn(consultaService, 'query').and.returnValue(of(new HttpResponse({ body: consultaCollection })));
-        const additionalConsultas = [consulta];
-        const expectedCollection: IConsulta[] = [...additionalConsultas, ...consultaCollection];
-        spyOn(consultaService, 'addConsultaToCollectionIfMissing').and.returnValue(expectedCollection);
-
-        activatedRoute.data = of({ remedios });
-        comp.ngOnInit();
-
-        expect(consultaService.query).toHaveBeenCalled();
-        expect(consultaService.addConsultaToCollectionIfMissing).toHaveBeenCalledWith(consultaCollection, ...additionalConsultas);
-        expect(comp.consultasSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const remedios: IRemedios = { id: 456 };
-        const consulta: IConsulta = { id: 10248 };
-        remedios.consulta = consulta;
 
         activatedRoute.data = of({ remedios });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(remedios));
-        expect(comp.consultasSharedCollection).toContain(consulta);
       });
     });
 
@@ -133,16 +107,6 @@ describe('Component Tests', () => {
         expect(remediosService.update).toHaveBeenCalledWith(remedios);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Tracking relationships identifiers', () => {
-      describe('trackConsultaById', () => {
-        it('Should return tracked Consulta primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackConsultaById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
       });
     });
   });

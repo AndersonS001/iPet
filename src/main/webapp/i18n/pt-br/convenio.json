@@ -20,7 +20,9 @@
       "id": "ID",
       "nome": "Nome",
       "plano": "Plano",
-      "valor": "Valor"
+      "valor": "Valor",
+      "consulta": "Consulta",
+      "pet": "Pet"
     }
   }
 }

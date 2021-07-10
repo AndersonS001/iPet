@@ -20,7 +20,8 @@
       "id": "ID",
       "nome": "Nome",
       "dataAplicacao": "Data Aplicacao",
-      "tipo": "Tipo"
+      "tipo": "Tipo",
+      "pet": "Pet"
     }
   }
 }

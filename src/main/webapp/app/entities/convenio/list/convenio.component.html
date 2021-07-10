@@ -36,6 +36,7 @@
           <th scope="col"><span jhiTranslate="iPetApp.convenio.nome">Nome</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.convenio.plano">Plano</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.convenio.valor">Valor</span></th>
+          <th scope="col"><span jhiTranslate="iPetApp.convenio.consulta">Consulta</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -47,6 +48,12 @@
           <td>{{ convenio.nome }}</td>
           <td>{{ convenio.plano }}</td>
           <td>{{ convenio.valor }}</td>
+          <td>
+            <span *ngFor="let consulta of convenio.consultas; let last = last">
+              <a class="form-control-static" [routerLink]="['/consulta', consulta.id, 'view']">{{ consulta.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

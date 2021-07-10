@@ -36,7 +36,6 @@
           <th scope="col"><span jhiTranslate="iPetApp.remedios.nome">Nome</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.remedios.fabricante">Fabricante</span></th>
           <th scope="col"><span jhiTranslate="iPetApp.remedios.tipo">Tipo</span></th>
-          <th scope="col"><span jhiTranslate="iPetApp.remedios.consulta">Consulta</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -48,11 +47,6 @@
           <td>{{ remedios.nome }}</td>
           <td>{{ remedios.fabricante }}</td>
           <td jhiTranslate="{{ 'iPetApp.TipoRemedio.' + remedios.tipo }}">{{ remedios.tipo }}</td>
-          <td>
-            <div *ngIf="remedios.consulta">
-              <a [routerLink]="['/consulta', remedios.consulta?.id, 'view']">{{ remedios.consulta?.id }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

@@ -33,12 +33,6 @@
             {{ exame.resultadoContentType }}, {{ byteSize(exame.resultado) }}
           </div>
         </dd>
-        <dt><span jhiTranslate="iPetApp.exame.consulta">Consulta</span></dt>
-        <dd>
-          <div *ngIf="exame.consulta">
-            <a [routerLink]="['/consulta', exame.consulta?.id, 'view']">{{ exame.consulta?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

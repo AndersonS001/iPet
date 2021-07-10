@@ -1,6 +1,9 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,6 +31,21 @@ public class Convenio implements Serializable {
 
     @Column(name = "valor")
     private Double valor;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_convenio__consulta",
+        joinColumns = @JoinColumn(name = "convenio_id"),
+        inverseJoinColumns = @JoinColumn(name = "consulta_id")
+    )
+    @JsonIgnoreProperties(value = { "remedios", "exames", "convenios", "pets" }, allowSetters = true)
+    private Set<Consulta> consultas = new HashSet<>();
+
+    @ManyToMany(mappedBy = "convenios")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "convenios", "vacinas", "consultas", "tutor" }, allowSetters = true)
+    private Set<Pet> pets = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -80,6 +98,62 @@ public class Convenio implements Serializable {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public Set<Consulta> getConsultas() {
+        return this.consultas;
+    }
+
+    public Convenio consultas(Set<Consulta> consultas) {
+        this.setConsultas(consultas);
+        return this;
+    }
+
+    public Convenio addConsulta(Consulta consulta) {
+        this.consultas.add(consulta);
+        consulta.getConvenios().add(this);
+        return this;
+    }
+
+    public Convenio removeConsulta(Consulta consulta) {
+        this.consultas.remove(consulta);
+        consulta.getConvenios().remove(this);
+        return this;
+    }
+
+    public void setConsultas(Set<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
+    public Set<Pet> getPets() {
+        return this.pets;
+    }
+
+    public Convenio pets(Set<Pet> pets) {
+        this.setPets(pets);
+        return this;
+    }
+
+    public Convenio addPet(Pet pet) {
+        this.pets.add(pet);
+        pet.getConvenios().add(this);
+        return this;
+    }
+
+    public Convenio removePet(Pet pet) {
+        this.pets.remove(pet);
+        pet.getConvenios().remove(this);
+        return this;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        if (this.pets != null) {
+            this.pets.forEach(i -> i.removeConvenio(this));
+        }
+        if (pets != null) {
+            pets.forEach(i -> i.addConvenio(this));
+        }
+        this.pets = pets;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -3,13 +3,17 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IConsulta, Consulta } from '../consulta.model';
 import { ConsultaService } from '../service/consulta.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IRemedios } from 'app/entities/remedios/remedios.model';
+import { RemediosService } from 'app/entities/remedios/service/remedios.service';
+import { IExame } from 'app/entities/exame/exame.model';
+import { ExameService } from 'app/entities/exame/service/exame.service';
 
 @Component({
   selector: 'jhi-consulta-update',
@@ -18,6 +22,9 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 export class ConsultaUpdateComponent implements OnInit {
   isSaving = false;
 
+  remediosSharedCollection: IRemedios[] = [];
+  examesSharedCollection: IExame[] = [];
+
   editForm = this.fb.group({
     id: [],
     especialidade: [],
@@ -25,12 +32,16 @@ export class ConsultaUpdateComponent implements OnInit {
     valor: [],
     receita: [],
     receitaContentType: [],
+    remedios: [],
+    exames: [],
   });
 
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected consultaService: ConsultaService,
+    protected remediosService: RemediosService,
+    protected exameService: ExameService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -38,6 +49,8 @@ export class ConsultaUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ consulta }) => {
       this.updateForm(consulta);
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -72,6 +85,36 @@ export class ConsultaUpdateComponent implements OnInit {
     }
   }
 
+  trackRemediosById(index: number, item: IRemedios): number {
+    return item.id!;
+  }
+
+  trackExameById(index: number, item: IExame): number {
+    return item.id!;
+  }
+
+  getSelectedRemedios(option: IRemedios, selectedVals?: IRemedios[]): IRemedios {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
+  getSelectedExame(option: IExame, selectedVals?: IExame[]): IExame {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IConsulta>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -99,7 +142,35 @@ export class ConsultaUpdateComponent implements OnInit {
       valor: consulta.valor,
       receita: consulta.receita,
       receitaContentType: consulta.receitaContentType,
+      remedios: consulta.remedios,
+      exames: consulta.exames,
     });
+
+    this.remediosSharedCollection = this.remediosService.addRemediosToCollectionIfMissing(
+      this.remediosSharedCollection,
+      ...(consulta.remedios ?? [])
+    );
+    this.examesSharedCollection = this.exameService.addExameToCollectionIfMissing(this.examesSharedCollection, ...(consulta.exames ?? []));
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.remediosService
+      .query()
+      .pipe(map((res: HttpResponse<IRemedios[]>) => res.body ?? []))
+      .pipe(
+        map((remedios: IRemedios[]) =>
+          this.remediosService.addRemediosToCollectionIfMissing(remedios, ...(this.editForm.get('remedios')!.value ?? []))
+        )
+      )
+      .subscribe((remedios: IRemedios[]) => (this.remediosSharedCollection = remedios));
+
+    this.exameService
+      .query()
+      .pipe(map((res: HttpResponse<IExame[]>) => res.body ?? []))
+      .pipe(
+        map((exames: IExame[]) => this.exameService.addExameToCollectionIfMissing(exames, ...(this.editForm.get('exames')!.value ?? [])))
+      )
+      .subscribe((exames: IExame[]) => (this.examesSharedCollection = exames));
   }
 
   protected createFromForm(): IConsulta {
@@ -111,6 +182,8 @@ export class ConsultaUpdateComponent implements OnInit {
       valor: this.editForm.get(['valor'])!.value,
       receitaContentType: this.editForm.get(['receitaContentType'])!.value,
       receita: this.editForm.get(['receita'])!.value,
+      remedios: this.editForm.get(['remedios'])!.value,
+      exames: this.editForm.get(['exames'])!.value,
     };
   }
 }
